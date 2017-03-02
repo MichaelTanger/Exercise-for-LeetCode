@@ -19,23 +19,19 @@ class Solution(object):
             return l1
         result=ListNode(0)
         cur=result
+        cur.next=l1
         p_1=l1
         p_2=l2
-        while p_1 or p_2:
-            if (not p_1) and p_2:
-                temp=p_2.val
+        while p_1 and p_2:
+            if p_2.val<=p_1.val:
+                current=p_2
                 p_2=p_2.next
-            elif (not p_2) and p_1:
-                temp=p_1.val
-                p_1=p_1.next
+                cur.next=current
+                current.next=p_1
+                cur=cur.next
             else:
-                if p_1.val<=p_2.val:
-                    temp=p_1.val
-                    p_1=p_1.next
-                else:
-                    temp=p_2.val
-                    p_2=p_2.next
-            insert_node=ListNode(temp)
-            cur.next=insert_node
-            cur=cur.next
+                p_1=p_1.next
+                cur=cur.next
+        if (not p_1) and p_2:
+            cur.next=p_2
         return result.next
