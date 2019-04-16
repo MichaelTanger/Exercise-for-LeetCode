@@ -1,0 +1,38 @@
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        num=len(s)
+        stack=Stack()
+        result=True
+        for i in range(num):
+            if stack.get_length()==0:
+                stack.Push(s[i])
+            else:
+                if (stack.peak()=='(' and s[i]==')') or (stack.peak()=='[' and s[i]==']') or (stack.peak()=='{' and s[i]=='}'):
+                    stack.Pop()
+                else:
+                    stack.Push(s[i])
+        if stack.get_length()==0:
+            result==True
+        else:
+            result=False
+        return result
+            
+            
+class Stack(object):
+    def __init__(self,items_1=[],length_1=0):
+        self.items=items_1
+        self.length=length_1
+    def Push(self,charcode):
+        self.items.append(charcode)
+        self.length+=1
+    def Pop(self):
+        self.items.pop()
+        self.length-=1
+    def peak(self):
+        return self.items[-1]
+    def get_length(self):
+        return self.length
